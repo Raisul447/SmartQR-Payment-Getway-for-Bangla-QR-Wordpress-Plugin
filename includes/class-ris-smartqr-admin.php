@@ -54,7 +54,7 @@ class RIS_SmartQR_Admin {
                 'media_title'       => __( 'Select QR Image', 'smartqr-payment-gateway-banglaqr' ),
                 'media_button_text' => __( 'Use QR Code', 'smartqr-payment-gateway-banglaqr' ),
                 'confirm_delete'    => __( 'Are you sure you want to delete this QR account?', 'smartqr-payment-gateway-banglaqr' ),
-                'default_qr_url'    => RIS_SMARTQR_URL . 'assets/testqr.png',
+                'default_qr_url'    => RIS_SMARTQR_URL . 'includes/img/testqr.png',
             ) );
         }
     }
