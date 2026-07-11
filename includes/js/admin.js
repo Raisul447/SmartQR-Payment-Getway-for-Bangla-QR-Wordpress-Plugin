@@ -373,8 +373,8 @@ jQuery(document).ready(function($) {
             $panel.find('.smartqr-toggle-status').text('Active');
             $('.smartqr-qr-admin-tab[data-index="' + idx + '"]').removeClass('tab-disabled');
         } else {
-            // User unchecked this one. Since at least one should be active, let's verify if there is any other active.
-            // If none is active, we check this back or warn. For now, let's allow it, but we serialize.
+            // Since at least one should be active, verify if there is any other active.
+            // If none is active, we check this back or warn. For now, allow it and serialize.
             $panel.find('.smartqr-toggle-status').text('Inactive');
             $('.smartqr-qr-admin-tab[data-index="' + idx + '"]').addClass('tab-disabled');
         }
