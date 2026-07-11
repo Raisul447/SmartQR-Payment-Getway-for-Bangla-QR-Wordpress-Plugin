@@ -1,0 +1,536 @@
+/**
+ * Admin Panel CSS for Bangla QR Payment Method WooCommerce Gateway
+ */
+
+:root {
+    --smartqr-primary: #137833;
+    --smartqr-accent: #E20613;
+    --smartqr-bg: #f8fafc;
+    --smartqr-border: #cbd5e1;
+    --smartqr-text: #1e293b;
+    --smartqr-text-light: #64748b;
+}
+
+.smartqr-admin-dashboard-wrap {
+    background-color: #fff;
+    border: 1px solid var(--smartqr-border);
+    border-radius: 12px;
+    margin-top: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+    overflow: hidden;
+    max-width: 1100px;
+}
+
+/* Header styling */
+.smartqr-dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    background-color: #fff;
+    border-bottom: 1px solid var(--smartqr-border);
+}
+
+.smartqr-header-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.smartqr-logo-icon {
+    width: 48px;
+    height: 48px;
+    background-color: #f0fdf4;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--smartqr-primary);
+    border: 1px solid #dcfce7;
+    flex-shrink: 0;
+}
+
+/* Status Badges */
+.smartqr-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.smartqr-status-badge.status-active {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.smartqr-status-badge.status-active .status-dot {
+    background-color: #22c55e;
+}
+
+.smartqr-status-badge.status-inactive {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.smartqr-status-badge.status-inactive .status-dot {
+    background-color: #ef4444;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+/* Panel Tabs */
+.smartqr-settings-panel {
+    background-color: var(--smartqr-bg);
+}
+
+.smartqr-panel-tabs {
+    display: flex;
+    background-color: #fff;
+    border-bottom: 1px solid var(--smartqr-border);
+    padding: 0 16px;
+}
+
+.smartqr-tab-trigger {
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--smartqr-text-light);
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.smartqr-tab-trigger:focus,
+.smartqr-tab-trigger:active {
+    outline: none !important;
+    box-shadow: none !important;
+    color: var(--smartqr-primary) !important;
+}
+
+.smartqr-tab-trigger:hover {
+    color: var(--smartqr-text);
+}
+
+.smartqr-tab-trigger.active {
+    color: var(--smartqr-primary);
+    border-bottom-color: var(--smartqr-primary);
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.smartqr-panel-content {
+    padding: 24px;
+}
+
+.smartqr-tab-panel {
+    display: none;
+}
+
+.smartqr-tab-panel.active {
+    display: block;
+}
+
+/* Repeatable QR Manager Layout */
+.smartqr-qr-admin-tabs-wrapper {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 24px;
+    margin-top: 20px;
+    min-height: 380px;
+}
+
+.smartqr-qr-admin-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-right: 1px solid var(--smartqr-border);
+    padding-right: 16px;
+}
+
+/* Tab item buttons */
+.smartqr-qr-admin-tab {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    background-color: #fff;
+    border: 1px solid var(--smartqr-border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--smartqr-text);
+    transition: all 0.15s ease;
+    gap: 10px;
+    position: relative;
+    user-select: none;
+}
+
+.smartqr-qr-admin-tab:hover {
+    border-color: #94a3b8;
+    background-color: #f8fafc;
+}
+
+.smartqr-qr-admin-tab.active {
+    border-color: var(--smartqr-primary);
+    background-color: #f0fdf4;
+    color: var(--smartqr-primary);
+}
+
+.smartqr-qr-admin-tab.tab-disabled {
+    opacity: 0.65;
+    background-color: #f1f5f9;
+}
+
+.smartqr-qr-admin-tab .sort-handle {
+    cursor: move;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+}
+
+.smartqr-qr-admin-tab .sort-handle:hover {
+    color: var(--smartqr-text);
+}
+
+.smartqr-tab-logo-preview {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background-color: #f1f5f9;
+    border: 1px solid var(--smartqr-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.smartqr-tab-logo-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.smartqr-tab-bank-title {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+}
+
+/* Add Row Button */
+.smartqr-btn-add-inline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px dashed var(--smartqr-primary);
+    background-color: #fff;
+    color: var(--smartqr-primary);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    margin-top: 4px;
+}
+
+.smartqr-btn-add-inline:hover {
+    background-color: #f0fdf4;
+}
+
+/* Edit Panels */
+.smartqr-qr-admin-panels {
+    background-color: #fff;
+    border: 1px solid var(--smartqr-border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+}
+
+.smartqr-qr-admin-panel {
+    display: none;
+}
+
+.smartqr-qr-admin-panel.active {
+    display: block;
+}
+
+.smartqr-panel-header-inline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.smartqr-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.smartqr-delete-card-btn {
+    background: none;
+    border: none;
+    color: var(--smartqr-accent) !important;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.15s ease;
+}
+
+.smartqr-delete-card-btn:hover {
+    background-color: #fef2f2;
+}
+
+.smartqr-card-body {
+    display: flex !important;
+    gap: 24px !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    padding-top: 16px;
+}
+
+.smartqr-large-qr-preview-wrapper {
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.smartqr-large-qr-preview-box {
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    background: #ffffff;
+    border: 2px solid var(--smartqr-border);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.smartqr-large-qr-preview-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.smartqr-card-inputs-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Forms styling */
+.smartqr-grid-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.smartqr-grid-field label {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--smartqr-text);
+}
+
+.smartqr-grid-field input[type="text"] {
+    border: 1px solid var(--smartqr-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    height: 38px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    transition: border 0.15s ease;
+}
+
+.smartqr-grid-field input[type="text"]:focus {
+    border-color: var(--smartqr-primary);
+    box-shadow: 0 0 0 1px var(--smartqr-primary);
+}
+
+.smartqr-uploader-inline {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.smartqr-uploader-inline .smartqr-logo-preview-box {
+    width: 48px;
+    height: 38px;
+    border: 1px solid var(--smartqr-border);
+    border-radius: 8px;
+    background-color: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 4px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.smartqr-uploader-inline .smartqr-logo-preview-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.smartqr-uploader-inline input[type="text"] {
+    margin: 0 !important;
+}
+
+.smartqr-uploader-inline button {
+    height: 38px;
+    border-radius: 8px !important;
+    margin: 0 !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    padding: 0 16px !important;
+    flex-shrink: 0;
+}
+
+.smartqr-field-tip {
+    margin: 4px 0 0 0;
+    color: var(--smartqr-text-light);
+    font-size: 12px;
+}
+
+.req {
+    color: var(--smartqr-accent);
+}
+
+/* Switch styling */
+.smartqr-toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.smartqr-switch {
+    position: relative;
+    display: inline-block;
+    width: 38px;
+    height: 22px;
+}
+
+.smartqr-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.smartqr-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: .3s;
+    border-radius: 22px;
+}
+
+.smartqr-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+.smartqr-switch input:checked + .smartqr-slider {
+    background-color: var(--smartqr-primary);
+}
+
+.smartqr-switch input:checked + .smartqr-slider:before {
+    transform: translateX(16px);
+}
+
+.smartqr-toggle-status {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--smartqr-text-light);
+    width: 50px;
+}
+
+/* Form layout rows */
+.smartqr-form-field-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+}
+
+.smartqr-toggle-desc {
+    display: flex;
+    flex-direction: column;
+}
+
+.smartqr-field-title-label {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--smartqr-text);
+}
+
+.smartqr-flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sorting animations */
+.ui-state-highlight {
+    background-color: #f1f5f9;
+    border: 1px dashed var(--smartqr-primary);
+    border-radius: 8px;
+    height: 50px;
+    margin-bottom: 8px;
+}
+
+/* Custom green Upload button overrides */
+.smartqr-upload-logo-btn,
+#smartqr-upload-gateway-logo-btn {
+    border-color: var(--smartqr-primary) !important;
+    color: var(--smartqr-primary) !important;
+    background-color: #ffffff !important;
+    transition: all 0.2s ease !important;
+}
+
+.smartqr-upload-logo-btn:hover,
+#smartqr-upload-gateway-logo-btn:hover,
+.smartqr-upload-logo-btn:focus,
+#smartqr-upload-gateway-logo-btn:focus {
+    background-color: rgba(19, 120, 51, 0.08) !important;
+    border-color: var(--smartqr-primary) !important;
+    color: var(--smartqr-primary) !important;
+    box-shadow: none !important;
+    outline: none !important;
+}

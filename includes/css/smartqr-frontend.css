@@ -1,0 +1,449 @@
+/**
+ * Checkout Frontend CSS for Bangla QR Payment Method
+ */
+
+:root {
+    --risb-primary: #137833;
+    --risb-primary-hover: #0f6229;
+    --risb-primary-light: #f0fdf4;
+    --risb-primary-border: #bbf7d0;
+    
+    --risb-accent: #E20613;
+    --risb-accent-hover: #c40510;
+    --risb-accent-light: #fef2f2;
+    --risb-accent-border: #fecaca;
+    
+    --risb-text: #0f172a;
+    --risb-text-muted: #475569;
+    --risb-text-light: #64748b;
+    --risb-border: #e2e8f0;
+    --risb-bg-dark: rgba(15, 23, 42, 0.6);
+}
+
+/* Modal Overlay */
+.smartqr-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--risb-bg-dark);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.smartqr-modal-overlay.risb-active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Modal Container */
+.smartqr-modal-container {
+    background-color: #ffffff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    transform: translateY(30px) scale(0.96);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+}
+
+.smartqr-modal-overlay.risb-active .smartqr-modal-container {
+    transform: translateY(0) scale(1);
+}
+
+/* Header */
+.smartqr-modal-header {
+    padding: 14px 20px;
+    background-color: var(--risb-primary);
+    color: #ffffff;
+    border-bottom: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.smartqr-modal-header h3 {
+    margin: 0 !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    font-family: inherit;
+    line-height: 1.2 !important;
+}
+
+.smartqr-modal-subtitle {
+    margin: 4px 0 0 0 !important;
+    font-size: 12px !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    line-height: 1.4;
+}
+
+.smartqr-modal-close {
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.smartqr-modal-close:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+.smartqr-modal-close svg {
+    width: 16px;
+    height: 16px;
+}
+
+.smartqr-modal-body {
+    padding: 16px 20px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Error Banner */
+.smartqr-modal-error {
+    background-color: var(--risb-accent-light);
+    border: 1px solid var(--risb-accent-border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: var(--risb-accent);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    display: none;
+}
+
+/* QR Code Wrapper */
+.smartqr-qr-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0px;
+    padding: 2px 0;
+}
+
+.smartqr-qr-box {
+    width: 145px;
+    height: 155px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    border: 2px solid var(--risb-primary);
+    box-shadow: 0 8px 12px -3px rgba(0, 0, 0, 0.05);
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 8px;
+    box-sizing: border-box;
+    margin: 0 auto !important;
+}
+
+.smartqr-qr-box img {
+    width: 120px !important;
+    height: 120px !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    display: block !important;
+    position: static !important;
+    transform: none !important;
+    margin: 0 0 4px 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.smartqr-qr-box-text {
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    color: var(--risb-primary) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-align: center !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.2 !important;
+}
+
+.smartqr-qr-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--risb-primary);
+    background-color: var(--risb-primary-light);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--risb-primary-border);
+}
+
+/* Instructions alert */
+.smartqr-instruction-banner {
+    display: block;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    padding: 2px 6px;
+}
+
+.smartqr-instruction-text {
+    margin: 0 !important;
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+    color: var(--risb-text-muted) !important;
+    font-weight: 500 !important;
+}
+
+/* Upload Section */
+.smartqr-upload-section {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.smartqr-upload-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--risb-text);
+    text-align: center !important;
+}
+
+.smartqr-dropzone {
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 12px 14px;
+    text-align: center;
+    background-color: #f8fafc;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.smartqr-dropzone:hover, 
+.smartqr-dropzone.risb-dragover {
+    border-color: var(--risb-primary);
+    background-color: var(--risb-primary-light);
+}
+
+.smartqr-upload-icon {
+    color: var(--risb-text-light);
+    width: 24px;
+    height: 24px;
+    transition: color 0.2s;
+}
+
+.smartqr-dropzone:hover .smartqr-upload-icon,
+.smartqr-dropzone.risb-dragover .smartqr-upload-icon {
+    color: var(--risb-primary);
+}
+
+.smartqr-upload-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--risb-text);
+}
+
+.smartqr-upload-subtext {
+    font-size: 11px;
+    color: var(--risb-text-light);
+}
+
+/* File Preview */
+.smartqr-file-preview-card {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    background-color: #fff;
+    border: 1px solid var(--risb-border);
+    border-radius: 12px;
+    gap: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    margin-top: 8px;
+}
+
+.smartqr-file-thumbnail {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--risb-border);
+    flex-shrink: 0;
+}
+
+.smartqr-file-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.smartqr-file-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--risb-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.smartqr-file-size {
+    font-size: 11px;
+    color: var(--risb-text-light);
+}
+
+.smartqr-remove-file-btn {
+    background: none;
+    border: none;
+    color: var(--risb-text-light);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.smartqr-remove-file-btn:hover {
+    background-color: var(--risb-accent-light);
+    color: var(--risb-accent);
+}
+
+.smartqr-remove-file-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Upload Progress Bar */
+.smartqr-progress-container {
+    width: 100%;
+    height: 4px;
+    background-color: #e2e8f0;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.smartqr-progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: var(--risb-primary);
+    transition: width 0.1s linear;
+}
+
+/* Footer Buttons */
+.smartqr-modal-footer {
+    padding: 10px 16px;
+    border-top: 1px solid var(--risb-border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    background-color: #ffffff;
+}
+
+.smartqr-btn {
+    border-radius: 12px;
+    padding: 8px 10px;
+    font-size: 12px !important;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+    height: 40px;
+    box-sizing: border-box;
+    white-space: nowrap !important;
+}
+
+.smartqr-btn-cancel {
+    background-color: #ffffff;
+    color: var(--risb-accent);
+    border: 1px solid var(--risb-accent-border);
+}
+
+.smartqr-btn-cancel:hover {
+    background-color: var(--risb-accent-light);
+    border-color: var(--risb-accent);
+}
+
+.smartqr-btn-submit {
+    background-color: var(--risb-primary);
+    color: #ffffff;
+}
+
+.smartqr-btn-submit:hover {
+    background-color: var(--risb-primary-hover);
+}
+
+.smartqr-btn-submit:disabled,
+.smartqr-btn-cancel:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Loading Spinners */
+.smartqr-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: risb-spin 0.8s linear infinite;
+    display: inline-block;
+}
+
+@keyframes risb-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Shake animation for errors */
+.smartqr-shake {
+    animation: risb-shake 0.4s ease;
+}
+
+@keyframes risb-shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+/* Utility hidden helper */
+.smartqr-hidden {
+    display: none !important;
+}
