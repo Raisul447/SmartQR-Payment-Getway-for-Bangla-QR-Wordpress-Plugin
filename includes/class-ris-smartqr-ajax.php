@@ -45,7 +45,7 @@ class RIS_SmartQR_Ajax {
             wp_send_json_error( array( 'message' => __( 'File upload failed with error code: ', 'smartqr-payment-gateway-banglaqr' ) . $file['error'] ) );
         }
 
-        // Validate size (max 5MB per user instructions)
+        // Validate size (max 5MB)
         $max_size = 5 * 1024 * 1024; // 5MB
         if ( $file['size'] > $max_size ) {
             wp_send_json_error( array( 'message' => __( 'File size exceeds the 5MB limit.', 'smartqr-payment-gateway-banglaqr' ) ) );
@@ -121,7 +121,7 @@ class RIS_SmartQR_Ajax {
                     }
                 }
                 
-                // 3. Compress quality to 70% (user requested compression - saves up to 80% storage space)
+                // 3. Compress quality to 70% to save storage space
                 $editor->set_quality( 70 );
                 $editor->save( $file_path );
                 
