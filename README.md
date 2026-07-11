@@ -1,0 +1,2 @@
+# SmartQR-Payment-Getway-for-Bangla-QR-Wordpress-Plugin
+Bangla QR Payment Method is a premium WooCommerce payment gateway for businesses in Bangladesh. It supports the official BanglaQR standard introduced by Bangladesh Bank, allowing customers to pay using any supported banking app or mobile financial service (MFS), including bKash, Nagad, Rocket, and participating bank apps through a single QR code.
