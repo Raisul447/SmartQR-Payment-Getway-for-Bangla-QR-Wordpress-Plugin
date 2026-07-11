@@ -3,7 +3,7 @@ Contributors: shagor447
 Tags: woocommerce, payment, gateway, banglaqr, qrpayment
 Requires at least: 5.6
 Tested up to: 7.0
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -64,6 +64,9 @@ Yes, guest customers can checkout and upload their payment screenshots securely.
 
 == Changelog ==
 
+= 1.2.2 =
+* Minor updates and compatibility checks.
+
 = 1.2.1 =
 * Initial public release of SmartQR Payment Gateway for BanglaQR.
 * Added support for Bangladesh Bank's unified BanglaQR standard.
@@ -73,3 +76,8 @@ Yes, guest customers can checkout and upload their payment screenshots securely.
 * Added automatic receipt image optimization and compression.
 * Added receipt preview in WooCommerce order details.
 * Added settings shortcut link from the Plugins page.
+
+== Upgrade Notice ==
+
+= 1.2.2 =
+Upgrade to version 1.2.2 for performance improvements and compatibility checks.
