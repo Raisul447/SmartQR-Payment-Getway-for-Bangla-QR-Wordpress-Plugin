@@ -27,7 +27,7 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
 
         // Set the gateway icon URL for WooCommerce admin payments list
         $logo_url          = $this->get_option( 'gateway_logo', '' );
-        $this->icon        = $logo_url ? $logo_url : RIS_SMARTQR_URL . 'assets/banglaqrlogo.png';
+        $this->icon        = $logo_url ? $logo_url : RIS_SMARTQR_URL . 'includes/img/banglaqrlogo.png';
 
         // Action hooks
         add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
@@ -66,7 +66,7 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
                 'title'       => __( 'Gateway Logo', 'smartqr-payment-gateway-banglaqr' ),
                 'type'        => 'text',
                 'description' => __( 'Upload a custom logo to show next to the title on checkout.', 'smartqr-payment-gateway-banglaqr' ),
-                'default'     => RIS_SMARTQR_URL . 'assets/banglaqrlogo.png',
+                'default'     => RIS_SMARTQR_URL . 'includes/img/banglaqrlogo.png',
                 'desc_tip'    => true,
             ),
             'description' => array(
@@ -83,7 +83,7 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
                 'default'     => array(
                     array(
                         'qr_name'        => 'Test QR',
-                        'qr_code_url'    => RIS_SMARTQR_URL . 'assets/testqr.png',
+                        'qr_code_url'    => RIS_SMARTQR_URL . 'includes/img/testqr.png',
                         'payment_charge' => '1',
                         'is_active'      => 'yes',
                     )
@@ -102,7 +102,7 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
         $title          = $this->get_option( 'title', 'Bangla QR Payment' );
         $gateway_logo   = $this->get_option( 'gateway_logo' );
         if ( ! $gateway_logo ) {
-            $gateway_logo = RIS_SMARTQR_URL . 'assets/banglaqrlogo.png';
+            $gateway_logo = RIS_SMARTQR_URL . 'includes/img/banglaqrlogo.png';
         }
         $description    = $this->get_option( 'description', '' );
         $qrs            = $this->get_option( 'qrs_table', array() );
@@ -111,7 +111,7 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
             $qrs = array(
                 array(
                     'qr_name'        => 'Test QR',
-                    'qr_code_url'    => RIS_SMARTQR_URL . 'assets/testqr.png',
+                    'qr_code_url'    => RIS_SMARTQR_URL . 'includes/img/testqr.png',
                     'payment_charge' => '1',
                     'is_active'      => 'yes',
                 )
@@ -300,7 +300,7 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
             $qrs_table = array(
                 array(
                     'qr_name'        => 'Test QR',
-                    'qr_code_url'    => RIS_SMARTQR_URL . 'assets/testqr.png',
+                    'qr_code_url'    => RIS_SMARTQR_URL . 'includes/img/testqr.png',
                     'payment_charge' => '1',
                     'is_active'      => 'yes',
                 )
@@ -333,9 +333,9 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
             'upload_nonce'        => wp_create_nonce( 'ris_smartqr_upload_slip_action' ),
             'active_qr'           => $active_qr,
             'gateway_id'          => $this->id,
-            'max_file_size'       => 5 * 1024 * 1024, // 5MB in bytes (per user instruction)
+            'max_file_size'       => 5 * 1024 * 1024, // 5MB in bytes
             'text_max_file_size'  => '5MB',
-            'paymentpage_img_url' => RIS_SMARTQR_URL . 'assets/banglaqr-paymentpage.png',
+            'paymentpage_img_url' => RIS_SMARTQR_URL . 'includes/img/banglaqr-paymentpage.png',
             'order_total'         => $formatted_total,
             'payment_charge'      => $charge_percent,
             'error_no_file'       => __( 'Please upload your payment receipt or screenshot to confirm your order.', 'smartqr-payment-gateway-banglaqr' ),
