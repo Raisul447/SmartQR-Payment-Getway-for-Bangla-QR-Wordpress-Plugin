@@ -3,7 +3,7 @@
  * Plugin Name: SmartQR Payment Gateway for BanglaQR
  * Plugin URI: https://raisul.dev/projects/smartqr-payment-getway-for-banglaqr-wordpress-plugin
  * Description: A WooCommerce payment gateway supporting bank and mobile QR payments with a scan-to-pay popup and payment receipt upload verification.
- * Version: 1.2.1
+ * Version: 1.2.2
  * Author: Raisul Islam Shagor
  * Author URI: https://raisul.dev
  * License: GPLv2 or later
@@ -19,7 +19,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Define plugin-wide constants
-define( 'RIS_SMARTQR_VERSION', '1.2.1' );
+define( 'RIS_SMARTQR_VERSION', '1.2.2' );
 define( 'RIS_SMARTQR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'RIS_SMARTQR_URL', plugin_dir_url( __FILE__ ) );
 define( 'RIS_SMARTQR_BASENAME', plugin_basename( __FILE__ ) );
@@ -125,7 +125,7 @@ function ris_smartqr_add_payment_charge_fee() {
         $qrs_table = array(
             array(
                 'qr_name'        => 'Test QR',
-                'qr_code_url'    => RIS_SMARTQR_URL . 'assets/testqr.png',
+                'qr_code_url'    => RIS_SMARTQR_URL . 'includes/img/testqr.png',
                 'payment_charge' => '1',
                 'is_active'      => 'yes',
             )
