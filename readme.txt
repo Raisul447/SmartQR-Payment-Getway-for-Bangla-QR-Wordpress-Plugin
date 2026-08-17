@@ -3,7 +3,7 @@ Contributors: shagor447
 Tags: woocommerce, payment, gateway, banglaqr, qrpayment
 Requires at least: 5.6
 Tested up to: 7.0
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -24,6 +24,9 @@ Backend administrators can configure multiple QR codes, assign customized proces
 * **BanglaQR Integration:** Aligned with Bangladesh's national QR payment standard.
 * **MFS & Bank Apps Compatibility:** Works with bKash, Nagad, Rocket, Upay, CellFin, City Touch, and bank apps.
 * **Popup Modal:** A responsive checkout popup that displays the payable amount, active QR, and instructions.
+* **Interactive QR Zoom:** Click the QR code inside checkout popup to enlarge it full-screen with a close button.
+* **Transaction ID Option:** Customers can provide their payment Transaction ID instead of or alongside a screenshot.
+* **Flexible Confirmation:** Confirm orders with receipt image only, transaction ID only, or both.
 * **Per-QR Percentage Charges:** Define separate bank fees or processing charges (e.g., 1.5% for credit cards, 0.7% for bKash) dynamically calculated and added to the checkout total.
 * **Proof of Payment Upload:** Customers can upload screenshots or receipts directly inside the checkout popup.
 * **Automated Image Optimization:** Uploaded receipts are auto-rotated, scaled to 1200px, and compressed to 70% quality on-the-fly.
@@ -64,6 +67,12 @@ Yes, guest customers can checkout and upload their payment screenshots securely.
 
 == Changelog ==
 
+= 1.2.3 =
+* Added full-size QR code lightbox preview popup on click with close button.
+* Added optional payment Transaction ID input field alongside receipt upload.
+* Support confirming payment with receipt screenshot, transaction ID, or both.
+* Added Transaction ID display and copy support in WooCommerce admin order details.
+
 = 1.2.2 =
 * Minor updates and compatibility checks.
 
@@ -78,6 +87,9 @@ Yes, guest customers can checkout and upload their payment screenshots securely.
 * Added settings shortcut link from the Plugins page.
 
 == Upgrade Notice ==
+
+= 1.2.3 =
+Upgrade to version 1.2.3 for interactive QR zoom view, payment transaction ID options, and flexible payment confirmation.
 
 = 1.2.2 =
 Upgrade to version 1.2.2 for performance improvements and compatibility checks.
