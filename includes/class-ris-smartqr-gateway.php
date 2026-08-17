@@ -338,7 +338,7 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
             'paymentpage_img_url' => RIS_SMARTQR_URL . 'includes/img/banglaqr-paymentpage.png',
             'order_total'         => $formatted_total,
             'payment_charge'      => $charge_percent,
-            'error_no_file'       => __( 'Please upload your payment receipt or screenshot to confirm your order.', 'smartqr-payment-gateway-banglaqr' ),
+            'error_no_file'       => __( 'Please upload your payment receipt or enter your payment Transaction ID to confirm your order.', 'smartqr-payment-gateway-banglaqr' ),
             'error_invalid_file'  => __( 'Invalid file format. Only JPEG, PNG, WEBP, and GIF images are allowed.', 'smartqr-payment-gateway-banglaqr' ),
             'error_file_too_large'=> __( 'The selected file is too large. Maximum size allowed is 5MB.', 'smartqr-payment-gateway-banglaqr' ),
         ) );
@@ -373,6 +373,7 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
         ?>
         <div id="smartqr-checkout-fields-container">
             <input type="hidden" name="ris_smartqr_receipt_id" id="ris_smartqr_receipt_id" value="" />
+            <input type="hidden" name="ris_smartqr_transaction_id" id="ris_smartqr_transaction_id" value="" />
             <input type="hidden" name="ris_smartqr_selected_qr" id="ris_smartqr_selected_qr" value="" />
             <div id="smartqr-selected-qr-preview" class="smartqr-selected-qr-preview" style="display:none; padding: 12px; border: 1px dashed #137833; border-radius: 8px; background-color: #f0fdf4; margin-top: 10px; font-size: 13px;"></div>
         </div>
@@ -386,8 +387,12 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
         // phpcs:ignore WordPress.Security.NonceVerification.Missing
         if ( isset( $_POST['payment_method'] ) && sanitize_text_field( wp_unslash( $_POST['payment_method'] ) ) === $this->id ) {
             // phpcs:ignore WordPress.Security.NonceVerification.Missing
-            if ( empty( $_POST['ris_smartqr_receipt_id'] ) ) {
-                wc_add_notice( __( 'Please upload your payment receipt or screenshot to complete the order via Bangla QR Payment.', 'smartqr-payment-gateway-banglaqr' ), 'error' );
+            $has_receipt = ! empty( $_POST['ris_smartqr_receipt_id'] );
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
+            $has_trx_id  = ! empty( $_POST['ris_smartqr_transaction_id'] ) && trim( sanitize_text_field( wp_unslash( $_POST['ris_smartqr_transaction_id'] ) ) ) !== '';
+
+            if ( ! $has_receipt && ! $has_trx_id ) {
+                wc_add_notice( __( 'Please upload your payment receipt or enter your payment Transaction ID to complete the order via Bangla QR Payment.', 'smartqr-payment-gateway-banglaqr' ), 'error' );
             }
         }
     }
@@ -400,6 +405,10 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
      */
     public function process_payment( $order_id ) {
         $order = wc_get_order( $order_id );
+
+        $receipt_id  = 0;
+        $trx_id      = '';
+        $selected_qr = '';
 
         // Save receipt and selected QR metadata to the order
         // phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -416,14 +425,41 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
         }
 
         // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        if ( ! empty( $_POST['ris_smartqr_transaction_id'] ) ) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
+            $trx_id = sanitize_text_field( wp_unslash( $_POST['ris_smartqr_transaction_id'] ) );
+            $order->update_meta_data( '_ris_smartqr_transaction_id', $trx_id );
+            $order->set_transaction_id( $trx_id );
+        }
+
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         if ( ! empty( $_POST['ris_smartqr_selected_qr'] ) ) {
             // phpcs:ignore WordPress.Security.NonceVerification.Missing
             $selected_qr = sanitize_text_field( wp_unslash( $_POST['ris_smartqr_selected_qr'] ) );
             $order->update_meta_data( '_ris_smartqr_selected_qr', $selected_qr );
         }
 
+        // Build informative order note
+        $note_details = array();
+        if ( ! empty( $selected_qr ) ) {
+            // translators: %s is the QR account name.
+            $note_details[] = sprintf( __( 'QR: %s', 'smartqr-payment-gateway-banglaqr' ), $selected_qr );
+        }
+        if ( ! empty( $trx_id ) ) {
+            // translators: %s is the transaction ID.
+            $note_details[] = sprintf( __( 'TrxID: %s', 'smartqr-payment-gateway-banglaqr' ), $trx_id );
+        }
+        if ( $receipt_id ) {
+            $note_details[] = __( 'Receipt Image: Attached', 'smartqr-payment-gateway-banglaqr' );
+        }
+
+        $order_note = __( 'Awaiting Bangla QR payment verification.', 'smartqr-payment-gateway-banglaqr' );
+        if ( ! empty( $note_details ) ) {
+            $order_note .= ' (' . implode( ' | ', $note_details ) . ')';
+        }
+
         // Set order status to on-hold (awaiting verification)
-        $order->update_status( 'on-hold', __( 'Awaiting Bangla QR payment receipt verification.', 'smartqr-payment-gateway-banglaqr' ) );
+        $order->update_status( 'on-hold', $order_note );
 
         // Reduce stock levels
         wc_reduce_stock_levels( $order_id );
