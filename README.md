@@ -11,7 +11,7 @@ A WooCommerce payment gateway supporting bank and mobile QR payments with a scan
 - **Requires at least:** WordPress 5.6
 - **Tested up to:** WordPress 7.0 
 - **Requires PHP:** 7.4  
-- **Stable tag:** 1.2.2 
+- **Stable tag:** 1.2.3 
 - **License:** [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)
 
 ---
@@ -72,6 +72,12 @@ Yes, guest customers can checkout and upload their payment screenshots securely.
 
 ## 📝 Changelog
 
+### 1.2.3
+- Added full-size QR code lightbox preview popup on click with close button.
+- Added optional payment Transaction ID input field alongside receipt upload.
+- Support confirming payment with receipt screenshot, transaction ID, or both.
+- Added Transaction ID display and copy support in WooCommerce admin order details.
+
 ### 1.2.2
 - Minor updates and compatibility checks.
 
@@ -88,8 +94,8 @@ Yes, guest customers can checkout and upload their payment screenshots securely.
 ---
 
 ## 📢 Update Notice
-= 1.2.2 =
-Upgrade to version 1.2.2 for performance improvements and compatibility checks.
+= 1.2.3 =
+Upgrade to version 1.2.3 for performance improvements and compatibility checks.
 
 ## ⚖️ License & Copyright
 - Copyright © **Raisul Islam Shagor** 
