@@ -46,6 +46,36 @@
     pointer-events: auto;
 }
 
+/* Scoped Theme Isolation and Button Reset */
+#smartqr-modal,
+#smartqr-modal *,
+#smartqr-modal *::before,
+#smartqr-modal *::after {
+    box-sizing: border-box !important;
+}
+
+#smartqr-modal button,
+html body #smartqr-modal button {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    margin: 0 !important;
+}
+
+#smartqr-modal svg,
+html body #smartqr-modal svg {
+    max-width: none !important;
+    max-height: none !important;
+    vertical-align: middle !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 /* Modal Container */
 .smartqr-modal-container {
     background-color: #ffffff;
@@ -88,34 +118,74 @@
 .smartqr-modal-subtitle {
     margin: 4px 0 0 0 !important;
     font-size: 12px !important;
-    color: rgba(255, 255, 255, 0.8) !important;
+    color: rgba(255, 255, 255, 0.85) !important;
     line-height: 1.4;
 }
 
+/* Modal Close Button */
+html body #smartqr-modal .smartqr-modal-close,
+#smartqr-modal .smartqr-modal-close,
 .smartqr-modal-close {
-    background: none;
-    border: none;
-    color: #ffffff;
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s, color 0.2s;
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    color: #ffffff !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: background-color 0.2s, color 0.2s, transform 0.15s !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    max-width: 32px !important;
+    max-height: 32px !important;
+    flex-shrink: 0 !important;
+    line-height: 1 !important;
+    position: static !important;
+    text-decoration: none !important;
 }
 
+html body #smartqr-modal .smartqr-modal-close:hover,
+#smartqr-modal .smartqr-modal-close:hover,
 .smartqr-modal-close:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
 }
 
+html body #smartqr-modal .smartqr-modal-close svg,
+#smartqr-modal .smartqr-modal-close svg,
 .smartqr-modal-close svg {
-    width: 16px;
-    height: 16px;
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    min-height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    stroke: #ffffff !important;
+    fill: none !important;
+    stroke-width: 2.5px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    margin: 0 auto !important;
+}
+
+html body #smartqr-modal .smartqr-modal-close svg line,
+html body #smartqr-modal .smartqr-modal-close svg path,
+#smartqr-modal .smartqr-modal-close svg line,
+#smartqr-modal .smartqr-modal-close svg path {
+    stroke: #ffffff !important;
+    stroke-width: 2.5px !important;
+    fill: none !important;
 }
 
 .smartqr-modal-body {
@@ -151,17 +221,17 @@
 }
 
 .smartqr-qr-box {
-    width: 145px;
-    height: 155px;
-    border-radius: 12px;
+    width: 185px;
+    height: 204px;
+    border-radius: 16px;
     background-color: #ffffff;
     border: 2px solid var(--risb-primary);
-    box-shadow: 0 8px 12px -3px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 16px -3px rgba(0, 0, 0, 0.08);
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    padding: 8px;
+    padding: 10px;
     box-sizing: border-box;
     margin: 0 auto !important;
     position: relative;
@@ -178,62 +248,57 @@
     border-color: var(--risb-primary-hover);
 }
 
-.smartqr-qr-zoom-badge {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 22px;
-    height: 22px;
-    background-color: var(--risb-primary-light);
-    color: var(--risb-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    pointer-events: none;
-    transition: background-color 0.2s, transform 0.2s;
-}
-
-.smartqr-qr-box.is-zoomable:hover .smartqr-qr-zoom-badge {
-    background-color: var(--risb-primary);
-    color: #ffffff;
-    transform: scale(1.1);
-}
-
-.smartqr-qr-zoom-badge svg {
-    width: 12px;
-    height: 12px;
-}
-
+/* QR Zoom Hint Text (Simple subtle text below QR) */
 .smartqr-qr-zoom-hint-text {
-    font-size: 10.5px;
-    color: var(--risb-text-light);
-    text-align: center;
-    font-weight: 500;
+    display: block !important;
+    font-size: 11.5px !important;
+    color: #64748b !important;
+    text-align: center !important;
+    font-weight: 500 !important;
+    margin: 6px auto 3px auto !important;
+    padding: 0 !important;
+    line-height: 1.4 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    transition: color 0.15s ease !important;
+}
+
+.smartqr-qr-zoom-hint-text:hover {
+    color: var(--risb-primary) !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    transform: none !important;
 }
 
 .smartqr-qr-box img {
-    width: 120px !important;
-    height: 120px !important;
+    width: 160px !important;
+    height: 160px !important;
     max-width: 100% !important;
     max-height: 100% !important;
     object-fit: contain !important;
     display: block !important;
     position: static !important;
     transform: none !important;
-    margin: 0 0 4px 0 !important;
+    margin: 0 0 6px 0 !important;
     padding: 0 !important;
     border: none !important;
     box-shadow: none !important;
 }
 
 .smartqr-qr-box-text {
-    font-size: 10px !important;
+    font-size: 11px !important;
     font-weight: 800 !important;
     color: var(--risb-primary) !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
+    letter-spacing: 0.6px !important;
     text-align: center !important;
     width: 100% !important;
     margin: 0 !important;
@@ -370,27 +435,64 @@
     color: var(--risb-text-light);
 }
 
+html body #smartqr-modal button.smartqr-remove-file-btn,
+#smartqr-modal button.smartqr-remove-file-btn,
 .smartqr-remove-file-btn {
-    background: none;
-    border: none;
-    color: var(--risb-text-light);
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s, color 0.2s;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    color: var(--risb-text-light) !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: background-color 0.2s, color 0.2s !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    flex-shrink: 0 !important;
 }
 
+html body #smartqr-modal button.smartqr-remove-file-btn:hover,
+#smartqr-modal button.smartqr-remove-file-btn:hover,
 .smartqr-remove-file-btn:hover {
-    background-color: var(--risb-accent-light);
-    color: var(--risb-accent);
+    background-color: var(--risb-accent-light) !important;
+    color: var(--risb-accent) !important;
 }
 
+html body #smartqr-modal .smartqr-remove-file-btn svg,
+#smartqr-modal .smartqr-remove-file-btn svg,
 .smartqr-remove-file-btn svg {
-    width: 16px;
-    height: 16px;
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+    stroke: #64748b !important;
+    fill: none !important;
+    stroke-width: 2.5px !important;
+    display: block !important;
+    visibility: visible !important;
+}
+
+html body #smartqr-modal .smartqr-remove-file-btn svg line,
+#smartqr-modal .smartqr-remove-file-btn svg line {
+    stroke: #64748b !important;
+    stroke-width: 2.5px !important;
+    fill: none !important;
+}
+
+html body #smartqr-modal button.smartqr-remove-file-btn:hover svg,
+html body #smartqr-modal button.smartqr-remove-file-btn:hover svg line,
+#smartqr-modal button.smartqr-remove-file-btn:hover svg,
+#smartqr-modal button.smartqr-remove-file-btn:hover svg line {
+    stroke: var(--risb-accent) !important;
 }
 
 /* Upload Progress Bar */
@@ -418,55 +520,119 @@
     margin-top: 2px;
 }
 
+html body #smartqr-modal .smartqr-trx-toggle-wrap,
+#smartqr-modal .smartqr-trx-toggle-wrap,
 .smartqr-trx-toggle-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 2px 0 !important;
 }
 
+html body #smartqr-modal button.smartqr-trx-toggle-btn,
+html body #smartqr-modal .smartqr-trx-toggle-btn,
+#smartqr-modal button.smartqr-trx-toggle-btn,
+#smartqr-modal .smartqr-trx-toggle-btn,
 .smartqr-trx-toggle-btn {
-    background: none;
-    border: none;
-    padding: 6px 10px;
-    color: var(--risb-primary);
-    font-size: 11.5px;
-    font-weight: 600;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    border-radius: 8px;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    font-family: inherit;
-    text-decoration: none;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    padding: 6px 12px !important;
+    margin: 0 !important;
+    color: var(--risb-primary) !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    font-family: inherit !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    border-radius: 8px !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: unset !important;
+    max-height: unset !important;
+    line-height: 1.4 !important;
 }
 
+html body #smartqr-modal button.smartqr-trx-toggle-btn:hover,
+#smartqr-modal button.smartqr-trx-toggle-btn:hover,
 .smartqr-trx-toggle-btn:hover {
-    background-color: var(--risb-primary-light);
-    color: var(--risb-primary-hover);
+    background-color: var(--risb-primary-light) !important;
+    background: var(--risb-primary-light) !important;
+    color: var(--risb-primary-hover) !important;
 }
 
+html body #smartqr-modal .smartqr-trx-toggle-icon,
+#smartqr-modal .smartqr-trx-toggle-icon,
 .smartqr-trx-toggle-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 14px !important;
+    height: 14px !important;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    flex-shrink: 0 !important;
 }
 
+html body #smartqr-modal .smartqr-trx-toggle-icon svg,
+#smartqr-modal .smartqr-trx-toggle-icon svg,
 .smartqr-trx-toggle-icon svg {
-    width: 13px;
-    height: 13px;
+    width: 14px !important;
+    height: 14px !important;
+    min-width: 14px !important;
+    min-height: 14px !important;
+    stroke: var(--risb-primary) !important;
+    fill: none !important;
+    stroke-width: 2.5px !important;
+    display: block !important;
 }
 
-.smartqr-trx-toggle-btn.is-open .smartqr-trx-toggle-icon {
-    transform: rotate(45deg);
-    color: var(--risb-accent);
+html body #smartqr-modal .smartqr-trx-toggle-icon svg line,
+#smartqr-modal .smartqr-trx-toggle-icon svg line {
+    stroke: var(--risb-primary) !important;
+    stroke-width: 2.5px !important;
+    fill: none !important;
 }
 
+html body #smartqr-modal button.smartqr-trx-toggle-btn.is-open,
+#smartqr-modal button.smartqr-trx-toggle-btn.is-open,
 .smartqr-trx-toggle-btn.is-open {
-    color: #475569;
+    color: #475569 !important;
+    background-color: #f1f5f9 !important;
+    background: #f1f5f9 !important;
+}
+
+html body #smartqr-modal .smartqr-trx-toggle-btn.is-open .smartqr-trx-toggle-icon,
+#smartqr-modal .smartqr-trx-toggle-btn.is-open .smartqr-trx-toggle-icon,
+.smartqr-trx-toggle-btn.is-open .smartqr-trx-toggle-icon {
+    transform: rotate(45deg) !important;
+}
+
+html body #smartqr-modal .smartqr-trx-toggle-btn.is-open .smartqr-trx-toggle-icon svg,
+html body #smartqr-modal .smartqr-trx-toggle-btn.is-open .smartqr-trx-toggle-icon svg line,
+#smartqr-modal .smartqr-trx-toggle-btn.is-open .smartqr-trx-toggle-icon svg,
+#smartqr-modal .smartqr-trx-toggle-btn.is-open .smartqr-trx-toggle-icon svg line {
+    stroke: var(--risb-accent) !important;
+}
+
+html body #smartqr-modal .smartqr-trx-toggle-text,
+#smartqr-modal .smartqr-trx-toggle-text {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    line-height: 1.4 !important;
+    color: inherit !important;
 }
 
 .smartqr-trx-input-container {
@@ -532,57 +698,109 @@
 }
 
 /* Footer Buttons */
+html body #smartqr-modal .smartqr-modal-footer,
+#smartqr-modal .smartqr-modal-footer,
 .smartqr-modal-footer {
-    padding: 10px 16px;
-    border-top: 1px solid var(--risb-border);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    background-color: #ffffff;
+    padding: 12px 18px !important;
+    border-top: 1px solid var(--risb-border) !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    box-sizing: border-box !important;
 }
 
+html body #smartqr-modal button.smartqr-btn,
+html body #smartqr-modal .smartqr-btn,
+#smartqr-modal button.smartqr-btn,
+#smartqr-modal .smartqr-btn,
 .smartqr-btn {
-    border-radius: 12px;
-    padding: 8px 10px;
-    font-size: 12px !important;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    text-decoration: none;
-    height: 40px;
-    box-sizing: border-box;
+    border-radius: 12px !important;
+    padding: 0 14px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    font-family: inherit !important;
+    cursor: pointer !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    text-decoration: none !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    max-height: 42px !important;
+    box-sizing: border-box !important;
     white-space: nowrap !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    line-height: 42px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
 }
 
+html body #smartqr-modal button.smartqr-btn-cancel,
+html body #smartqr-modal .smartqr-btn-cancel,
+#smartqr-modal button.smartqr-btn-cancel,
+#smartqr-modal .smartqr-btn-cancel,
 .smartqr-btn-cancel {
-    background-color: #ffffff;
-    color: var(--risb-accent);
-    border: 1px solid var(--risb-accent-border);
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: var(--risb-accent) !important;
+    border: 1.5px solid var(--risb-accent-border) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
 }
 
+html body #smartqr-modal button.smartqr-btn-cancel:hover,
+html body #smartqr-modal .smartqr-btn-cancel:hover,
+#smartqr-modal button.smartqr-btn-cancel:hover,
+#smartqr-modal .smartqr-btn-cancel:hover,
 .smartqr-btn-cancel:hover {
-    background-color: var(--risb-accent-light);
-    border-color: var(--risb-accent);
+    background-color: var(--risb-accent-light) !important;
+    background: var(--risb-accent-light) !important;
+    border-color: var(--risb-accent) !important;
+    color: var(--risb-accent-hover) !important;
+    box-shadow: 0 2px 4px rgba(226, 6, 19, 0.12) !important;
 }
 
+html body #smartqr-modal button.smartqr-btn-submit,
+html body #smartqr-modal .smartqr-btn-submit,
+#smartqr-modal button.smartqr-btn-submit,
+#smartqr-modal .smartqr-btn-submit,
 .smartqr-btn-submit {
-    background-color: var(--risb-primary);
-    color: #ffffff;
+    background-color: var(--risb-primary) !important;
+    background: var(--risb-primary) !important;
+    color: #ffffff !important;
+    border: 1.5px solid var(--risb-primary) !important;
+    box-shadow: 0 2px 6px rgba(19, 120, 51, 0.25) !important;
 }
 
+html body #smartqr-modal button.smartqr-btn-submit:hover,
+html body #smartqr-modal .smartqr-btn-submit:hover,
+#smartqr-modal button.smartqr-btn-submit:hover,
+#smartqr-modal .smartqr-btn-submit:hover,
 .smartqr-btn-submit:hover {
-    background-color: var(--risb-primary-hover);
+    background-color: var(--risb-primary-hover) !important;
+    background: var(--risb-primary-hover) !important;
+    border-color: var(--risb-primary-hover) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 8px rgba(19, 120, 51, 0.3) !important;
 }
 
+html body #smartqr-modal button.smartqr-btn-submit:disabled,
+html body #smartqr-modal button.smartqr-btn-cancel:disabled,
+#smartqr-modal button.smartqr-btn-submit:disabled,
+#smartqr-modal button.smartqr-btn-cancel:disabled,
 .smartqr-btn-submit:disabled,
 .smartqr-btn-cancel:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
 }
 
 /* QR Zoom Lightbox Overlay */
@@ -603,19 +821,22 @@
     box-sizing: border-box;
 }
 
+html body #smartqr-modal .smartqr-zoom-card,
+#smartqr-modal .smartqr-zoom-card,
 .smartqr-zoom-card {
-    background-color: #ffffff;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 340px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px 18px;
-    gap: 12px;
-    box-sizing: border-box;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    width: 100% !important;
+    max-width: 340px !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35) !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 16px 18px !important;
+    gap: 12px !important;
+    box-sizing: border-box !important;
     animation: smartqr-zoom-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -646,16 +867,17 @@
 }
 
 .smartqr-zoom-badge {
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--risb-primary);
-    background: var(--risb-primary-light);
-    padding: 2px 8px;
-    border-radius: 12px;
-    width: fit-content;
-    border: 1px solid var(--risb-primary-border);
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    color: var(--risb-primary) !important;
+    background: var(--risb-primary-light) !important;
+    padding: 2px 8px !important;
+    border-radius: 12px !important;
+    width: fit-content !important;
+    border: 1px solid var(--risb-primary-border) !important;
+    line-height: 1.4 !important;
 }
 
 .smartqr-zoom-title {
@@ -666,29 +888,69 @@
     line-height: 1.2 !important;
 }
 
+html body #smartqr-modal .smartqr-zoom-close,
+#smartqr-modal .smartqr-zoom-close,
 .smartqr-zoom-close {
-    background: none;
-    border: none;
-    color: #64748b;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    transition: all 0.2s;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    color: #475569 !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    max-width: 32px !important;
+    max-height: 32px !important;
+    flex-shrink: 0 !important;
+    line-height: 1 !important;
+    position: static !important;
+    transition: background-color 0.2s, color 0.2s !important;
+    text-decoration: none !important;
 }
 
+html body #smartqr-modal .smartqr-zoom-close:hover,
+#smartqr-modal .smartqr-zoom-close:hover,
 .smartqr-zoom-close:hover {
-    background-color: #f1f5f9;
-    color: #0f172a;
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
 }
 
+html body #smartqr-modal .smartqr-zoom-close svg,
+#smartqr-modal .smartqr-zoom-close svg,
 .smartqr-zoom-close svg {
-    width: 18px;
-    height: 18px;
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    min-height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    stroke: #475569 !important;
+    fill: none !important;
+    stroke-width: 2.5px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    margin: 0 auto !important;
+}
+
+html body #smartqr-modal .smartqr-zoom-close svg line,
+html body #smartqr-modal .smartqr-zoom-close svg path,
+#smartqr-modal .smartqr-zoom-close svg line,
+#smartqr-modal .smartqr-zoom-close svg path {
+    stroke: #475569 !important;
+    stroke-width: 2.5px !important;
+    fill: none !important;
 }
 
 .smartqr-zoom-img-wrap {
@@ -719,30 +981,54 @@
 }
 
 .smartqr-zoom-footer-note {
-    font-size: 11px;
-    color: var(--risb-text-muted);
-    text-align: center;
-    line-height: 1.35;
-    font-weight: 500;
+    font-size: 11px !important;
+    color: var(--risb-text-muted) !important;
+    text-align: center !important;
+    line-height: 1.35 !important;
+    font-weight: 500 !important;
 }
 
+html body #smartqr-modal button.smartqr-zoom-dismiss-btn,
+html body #smartqr-modal .smartqr-zoom-dismiss-btn,
+#smartqr-modal button.smartqr-zoom-dismiss-btn,
+#smartqr-modal .smartqr-zoom-dismiss-btn,
 .smartqr-zoom-dismiss-btn {
-    width: 100%;
-    height: 38px;
-    border-radius: 10px;
-    background-color: #f1f5f9;
-    border: 1px solid #cbd5e1;
-    color: var(--risb-text);
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin-top: 2px;
+    width: 100% !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    max-height: 40px !important;
+    border-radius: 12px !important;
+    background-color: #f1f5f9 !important;
+    background: #f1f5f9 !important;
+    border: 1.5px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    color: var(--risb-text) !important;
+    font-size: 12.5px !important;
+    font-weight: 700 !important;
+    font-family: inherit !important;
+    cursor: pointer !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    margin-top: 4px !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    line-height: 38px !important;
+    padding: 0 16px !important;
+    display: block !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    outline: none !important;
 }
 
+html body #smartqr-modal button.smartqr-zoom-dismiss-btn:hover,
+html body #smartqr-modal .smartqr-zoom-dismiss-btn:hover,
+#smartqr-modal button.smartqr-zoom-dismiss-btn:hover,
+#smartqr-modal .smartqr-zoom-dismiss-btn:hover,
 .smartqr-zoom-dismiss-btn:hover {
-    background-color: #e2e8f0;
-    color: #0f172a;
+    background-color: #e2e8f0 !important;
+    background: #e2e8f0 !important;
+    border-color: #94a3b8 !important;
+    color: #0f172a !important;
 }
 
 /* Loading Spinners */
