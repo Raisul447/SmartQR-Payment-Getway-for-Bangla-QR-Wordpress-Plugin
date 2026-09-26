@@ -40,7 +40,7 @@ jQuery(document).ready(function($) {
         html += '        <p class="smartqr-modal-subtitle">' + escHtml('Scan QR & upload payment proof.') + '</p>';
         html += '      </div>';
         html += '      <button type="button" class="smartqr-modal-close" id="smartqr-modal-close-btn" aria-label="Close modal">';
-        html += '        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12" /></svg>';
+        html += '        <svg class="smartqr-close-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
         html += '      </button>';
         html += '    </div>';
 
@@ -73,16 +73,13 @@ jQuery(document).ready(function($) {
             }
             html += '      </div>';
 
-            // QR Code Box (Click to zoom/enlarge)
+            // QR Code Box (Clean QR without overlapping badge to ensure 100% scan accuracy)
             html += '      <div class="smartqr-qr-wrapper">';
             html += '        <div class="smartqr-qr-box is-zoomable" id="smartqr-qr-box" title="Click to view enlarged QR code" role="button" tabindex="0">';
-            html += '          <div class="smartqr-qr-zoom-badge">';
-            html += '            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>';
-            html += '          </div>';
             html += '          <img src="' + escAttr(activeQr.qr_code_url) + '" alt="' + escAttr(activeQr.qr_name) + '" />';
             html += '          <div class="smartqr-qr-box-text">Scan Here to Pay</div>';
             html += '        </div>';
-            html += '        <div class="smartqr-qr-zoom-hint-text">Click QR code to view large size</div>';
+            html += '        <div class="smartqr-qr-zoom-hint-text" id="smartqr-qr-zoom-hint" role="button" tabindex="0">Click QR code to view large size</div>';
             html += '      </div>';
             
             // Payment Page Banner
@@ -104,7 +101,7 @@ jQuery(document).ready(function($) {
         html += '      <div class="smartqr-upload-section">';
         html += '        <label class="smartqr-upload-label">' + escHtml('Upload Payment Screenshot / Receipt') + '</label>';
         html += '        <div id="smartqr-dropzone" class="smartqr-dropzone">';
-        html += '          <svg class="smartqr-upload-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" /></svg>';
+        html += '          <svg class="smartqr-upload-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" /></svg>';
         html += '          <span class="smartqr-upload-text">Drag & drop receipt here or click to browse</span>';
         html += '          <span class="smartqr-upload-subtext">Max size: ' + ris_smartqr_params.text_max_file_size + ' (JPEG, PNG, WEBP, GIF)</span>';
         html += '          <input type="file" id="smartqr-file-input" style="display:none;" accept="image/*" />';
@@ -117,7 +114,7 @@ jQuery(document).ready(function($) {
         html += '        <div class="smartqr-trx-toggle-wrap">';
         html += '          <button type="button" class="smartqr-trx-toggle-btn" id="smartqr-trx-toggle-btn">';
         html += '            <span class="smartqr-trx-toggle-icon">';
-        html += '              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>';
+        html += '              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#137833" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>';
         html += '            </span>';
         html += '            <span class="smartqr-trx-toggle-text">Or provide your payment Transaction ID instead</span>';
         html += '          </button>';
@@ -125,7 +122,7 @@ jQuery(document).ready(function($) {
         html += '        <div class="smartqr-trx-input-container" id="smartqr-trx-input-container" style="display:none;">';
         html += '          <label class="smartqr-trx-label" for="smartqr-trx-input">Payment Transaction ID / TrxID</label>';
         html += '          <div class="smartqr-trx-input-box">';
-        html += '            <svg class="smartqr-trx-field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>';
+        html += '            <svg class="smartqr-trx-field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>';
         html += '            <input type="text" id="smartqr-trx-input" class="smartqr-trx-input" placeholder="e.g. 9K28DF109X or Bank Ref" autocomplete="off" />';
         html += '          </div>';
         html += '          <span class="smartqr-trx-hint">Enter the Transaction ID or reference from your bank/MFS payment receipt.</span>';
@@ -152,7 +149,7 @@ jQuery(document).ready(function($) {
             html += '          <h4 class="smartqr-zoom-title">Scan QR Code</h4>';
             html += '        </div>';
             html += '        <button type="button" class="smartqr-zoom-close" id="smartqr-zoom-close-btn" aria-label="Close enlarged QR">';
-            html += '          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12" /></svg>';
+            html += '          <svg class="smartqr-close-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
             html += '        </button>';
             html += '      </div>';
             html += '      <div class="smartqr-zoom-img-wrap">';
@@ -218,7 +215,7 @@ jQuery(document).ready(function($) {
         });
 
         // Open QR Zoom Lightbox
-        $('#smartqr-qr-box').on('click keydown', function(e) {
+        $('#smartqr-qr-box, #smartqr-qr-zoom-hint, .smartqr-qr-zoom-hint-text').on('click keydown', function(e) {
             if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') {
                 return;
             }
@@ -343,7 +340,7 @@ jQuery(document).ready(function($) {
             '    </div>' +
             '  </div>' +
             '  <button type="button" class="smartqr-remove-file-btn" id="smartqr-remove-file" aria-label="Remove file">' +
-            '    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12" /></svg>' +
+            '    <svg class="smartqr-remove-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>' +
             '  </button>' +
             '</div>'
         );
