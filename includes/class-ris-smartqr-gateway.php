@@ -31,7 +31,7 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
 
         // Action hooks
         add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_checkout_assets' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_checkout_assets' ), 99 );
         add_action( 'woocommerce_checkout_process', array( $this, 'validate_checkout_fields' ) );
     }
 
@@ -283,14 +283,45 @@ class RIS_SmartQR_Gateway extends WC_Payment_Gateway {
      * Enqueue CSS and JS assets on the checkout page.
      */
     public function enqueue_checkout_assets() {
-        if ( ! is_checkout() || ! $this->is_available() ) {
+        if ( ( ! is_checkout() && ! is_checkout_pay_page() ) || ! $this->is_available() ) {
             return;
         }
 
         $handle = 'smartqr-frontend';
 
-        wp_enqueue_style( $handle, RIS_SMARTQR_URL . 'includes/css/smartqr-frontend.css', array(), RIS_SMARTQR_VERSION );
-        wp_enqueue_script( $handle, RIS_SMARTQR_URL . 'includes/js/smartqr-frontend.js', array( 'jquery' ), RIS_SMARTQR_VERSION, true );
+        $css_file = RIS_SMARTQR_PATH . 'includes/css/smartqr-frontend.css';
+        $css_ver  = RIS_SMARTQR_VERSION . ( file_exists( $css_file ) ? '.' . filemtime( $css_file ) : '' );
+        wp_enqueue_style( $handle, RIS_SMARTQR_URL . 'includes/css/smartqr-frontend.css', array(), $css_ver );
+
+        // Force critical inline CSS overrides to ensure instant cross-theme consistency even on cached sites
+        $critical_inline_css = '
+            #smartqr-modal, #smartqr-modal * { box-sizing: border-box !important; }
+            html body #smartqr-modal .smartqr-modal-close, #smartqr-modal .smartqr-modal-close { background: transparent !important; background-color: transparent !important; border: none !important; box-shadow: none !important; color: #ffffff !important; padding: 0 !important; margin: 0 !important; width: 32px !important; height: 32px !important; min-width: 32px !important; min-height: 32px !important; border-radius: 50% !important; display: flex !important; align-items: center !important; justify-content: center !important; line-height: 1 !important; text-decoration: none !important; }
+            html body #smartqr-modal .smartqr-modal-close:hover, #smartqr-modal .smartqr-modal-close:hover { background-color: rgba(255, 255, 255, 0.2) !important; color: #ffffff !important; }
+            html body #smartqr-modal .smartqr-modal-close svg, #smartqr-modal .smartqr-modal-close svg { width: 18px !important; height: 18px !important; stroke: #ffffff !important; fill: none !important; stroke-width: 2.5px !important; display: block !important; visibility: visible !important; opacity: 1 !important; margin: 0 auto !important; }
+            html body #smartqr-modal .smartqr-modal-close svg line, #smartqr-modal .smartqr-modal-close svg line { stroke: #ffffff !important; stroke-width: 2.5px !important; fill: none !important; }
+            html body #smartqr-modal button.smartqr-btn, #smartqr-modal button.smartqr-btn { border-radius: 12px !important; height: 42px !important; min-height: 42px !important; max-height: 42px !important; line-height: 42px !important; text-transform: none !important; letter-spacing: normal !important; width: 100% !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: none !important; font-size: 13px !important; font-weight: 700 !important; cursor: pointer !important; padding: 0 14px !important; margin: 0 !important; }
+            html body #smartqr-modal button.smartqr-btn-cancel, #smartqr-modal button.smartqr-btn-cancel { background: #ffffff !important; background-color: #ffffff !important; color: #E20613 !important; border: 1.5px solid #fecaca !important; }
+            html body #smartqr-modal button.smartqr-btn-cancel:hover, #smartqr-modal button.smartqr-btn-cancel:hover { background: #fef2f2 !important; background-color: #fef2f2 !important; border-color: #E20613 !important; color: #c40510 !important; }
+            html body #smartqr-modal button.smartqr-btn-submit, #smartqr-modal button.smartqr-btn-submit { background: #137833 !important; background-color: #137833 !important; color: #ffffff !important; border: 1.5px solid #137833 !important; }
+            html body #smartqr-modal button.smartqr-btn-submit:hover, #smartqr-modal button.smartqr-btn-submit:hover { background: #0f6229 !important; background-color: #0f6229 !important; border-color: #0f6229 !important; color: #ffffff !important; }
+            html body #smartqr-modal button.smartqr-trx-toggle-btn, #smartqr-modal button.smartqr-trx-toggle-btn { background: transparent !important; background-color: transparent !important; border: none !important; box-shadow: none !important; color: #137833 !important; text-transform: none !important; letter-spacing: normal !important; width: auto !important; height: auto !important; min-height: unset !important; padding: 6px 12px !important; margin: 0 !important; font-size: 12px !important; font-weight: 600 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 6px !important; border-radius: 8px !important; }
+            html body #smartqr-modal button.smartqr-trx-toggle-btn:hover, #smartqr-modal button.smartqr-trx-toggle-btn:hover { background: #f0fdf4 !important; background-color: #f0fdf4 !important; color: #0f6229 !important; }
+            html body #smartqr-modal .smartqr-qr-zoom-hint-text, #smartqr-modal .smartqr-qr-zoom-hint-text { background: transparent !important; background-color: transparent !important; border: none !important; box-shadow: none !important; color: #64748b !important; font-size: 11.5px !important; font-weight: 500 !important; cursor: pointer !important; text-transform: none !important; width: 100% !important; padding: 0 !important; margin: 6px auto 4px auto !important; text-align: center !important; display: block !important; }
+            html body #smartqr-modal .smartqr-qr-zoom-hint-text:hover, #smartqr-modal .smartqr-qr-zoom-hint-text:hover { color: #137833 !important; background: transparent !important; background-color: transparent !important; border: none !important; box-shadow: none !important; }
+            html body #smartqr-modal .smartqr-trx-toggle-icon svg, #smartqr-modal .smartqr-trx-toggle-icon svg line { stroke: #137833 !important; stroke-width: 2.5px !important; fill: none !important; display: block !important; }
+            html body #smartqr-modal button.smartqr-zoom-dismiss-btn, #smartqr-modal button.smartqr-zoom-dismiss-btn { border-radius: 12px !important; background: #f1f5f9 !important; background-color: #f1f5f9 !important; border: 1.5px solid #cbd5e1 !important; color: #0f172a !important; height: 40px !important; min-height: 40px !important; line-height: 38px !important; text-transform: none !important; letter-spacing: normal !important; width: 100% !important; font-size: 12.5px !important; font-weight: 700 !important; cursor: pointer !important; padding: 0 16px !important; margin-top: 4px !important; display: block !important; text-align: center !important; box-shadow: none !important; }
+            html body #smartqr-modal button.smartqr-zoom-dismiss-btn:hover, #smartqr-modal button.smartqr-zoom-dismiss-btn:hover { background: #e2e8f0 !important; background-color: #e2e8f0 !important; border-color: #94a3b8 !important; color: #0f172a !important; }
+            html body #smartqr-modal .smartqr-zoom-close, #smartqr-modal .smartqr-zoom-close { background: transparent !important; background-color: transparent !important; border: none !important; box-shadow: none !important; color: #475569 !important; padding: 0 !important; margin: 0 !important; width: 32px !important; height: 32px !important; min-width: 32px !important; min-height: 32px !important; border-radius: 50% !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+            html body #smartqr-modal .smartqr-zoom-close:hover, #smartqr-modal .smartqr-zoom-close:hover { background: #f1f5f9 !important; background-color: #f1f5f9 !important; color: #0f172a !important; }
+            html body #smartqr-modal .smartqr-zoom-close svg, #smartqr-modal .smartqr-zoom-close svg { width: 18px !important; height: 18px !important; stroke: #475569 !important; fill: none !important; stroke-width: 2.5px !important; display: block !important; visibility: visible !important; opacity: 1 !important; margin: 0 auto !important; }
+            html body #smartqr-modal .smartqr-zoom-close svg line, #smartqr-modal .smartqr-zoom-close svg line { stroke: #475569 !important; stroke-width: 2.5px !important; fill: none !important; }
+        ';
+        wp_add_inline_style( $handle, $critical_inline_css );
+
+        $js_file  = RIS_SMARTQR_PATH . 'includes/js/smartqr-frontend.js';
+        $js_ver   = RIS_SMARTQR_VERSION . ( file_exists( $js_file ) ? '.' . filemtime( $js_file ) : '' );
+        wp_enqueue_script( $handle, RIS_SMARTQR_URL . 'includes/js/smartqr-frontend.js', array( 'jquery' ), $js_ver, true );
 
         // Find active QR code from settings
         $settings  = $this->settings;
