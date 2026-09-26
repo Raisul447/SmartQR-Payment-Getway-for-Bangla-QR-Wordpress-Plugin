@@ -3,7 +3,7 @@ Contributors: shagor447
 Tags: woocommerce, payment, gateway, banglaqr, qrpayment
 Requires at least: 5.6
 Tested up to: 7.0
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -67,6 +67,13 @@ Yes, guest customers can checkout and upload their payment screenshots securely.
 
 == Changelog ==
 
+= 1.2.4 =
+* Fix: Resolved popup close icon visibility issue by enforcing inline SVG line geometry and preventing theme button style overrides.
+* Fix: Restored custom designs for Cancel, Confirm Payment, and View QR close buttons with scoped !important rules across all third-party themes.
+* Fix: Restored payment Transaction ID toggle button design to prevent themes rendering it as an unstyled generic button.
+* Fix: Removed overlapping badge from QR code, enlarged QR display size for faster scanning, and refined zoom hint.
+* Performance: Added asset versioning and inline critical CSS injection to force instant cache-busting and design fixes for all installed users.
+
 = 1.2.3 =
 * Added full-size QR code lightbox preview popup on click with close button.
 * Added optional payment Transaction ID input field alongside receipt upload.
@@ -88,8 +95,8 @@ Yes, guest customers can checkout and upload their payment screenshots securely.
 
 == Upgrade Notice ==
 
+= 1.2.4 =
+Upgrade to version 1.2.4 for forced theme compatibility fixes, restoring modal close icons, action buttons, and Transaction ID styling across all WordPress themes.
+
 = 1.2.3 =
 Upgrade to version 1.2.3 for interactive QR zoom view, payment transaction ID options, and flexible payment confirmation.
-
-= 1.2.2 =
-Upgrade to version 1.2.2 for performance improvements and compatibility checks.
